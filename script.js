@@ -16,8 +16,6 @@ function game(){
     displayFinalResults(playerScore, computerScore);
 }
 
-
-
 function playRound(){
     let playerChoice = getPlayerChoice();
     let computerChoice = getComputerChoice();
@@ -39,7 +37,6 @@ function displayFinalResults(playerScore, computerScore){
     }
     console.log(`Final score\nplayer: ${playerScore} computer: ${computerScore}`);
 }
-
 
 function getResults(playerChoice, computerChoice){//ugly, compares player choice and computer choice to determine result
     if(playerChoice === 0){
@@ -121,9 +118,6 @@ function displayResult(result){
 function decodeChoice(op){
     return (op===0)? "Rock" : (op===1)? "Scissor" : "Paper";
 }
-
-
-
 
 
 // function getComputerChoice(){ //old version preferred to work with the numbers
