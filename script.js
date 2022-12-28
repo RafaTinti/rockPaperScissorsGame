@@ -1,13 +1,54 @@
 let getComputerChoice = () => Math.floor(Math.random()*2); // gets a number between 0-2 0-rock, 1-scissor, 2-paper
 
-function getResults(playerChoice, computerChoice){//ugly
+game();
+
+
+function game(){
+    console.log("this will be a best of five games of Rock, Paper, Scissors");
+    let playerScore=0, computerScore=0;
+    for(let i=0; i<5; i++){
+        result = playRound();
+        if(result !== "Draw"){
+            (result === "Won")? playerScore++ : computerScore++;
+        }
+        console.log(`Round ${i+1} player ${playerScore} wins and computer ${computerScore} wins`);
+    }
+    displayFinalResults(playerScore, computerScore);
+}
+
+
+
+function playRound(){
+    let playerChoice = getPlayerChoice();
+    let computerChoice = getComputerChoice();
+    console.log(`You chose ${decodeChoice(playerChoice)} and your opponent chose ${decodeChoice(computerChoice)}`);
+    let result = getResults(playerChoice, computerChoice);
+    displayResult(result);
+    return result;
+}
+
+function displayFinalResults(playerScore, computerScore){
+    if (playerScore > computerScore){
+        console.log("Congratulations you won!");
+    }
+    else if (playerScore == computerScore){
+        console.log("It's a Draw!");
+    }
+    else{
+        console.log("Sadly you lost");
+    }
+    console.log(`Final score\nplayer: ${playerScore} computer: ${computerScore}`);
+}
+
+
+function getResults(playerChoice, computerChoice){//ugly, compares player choice and computer choice to determine result
     if(playerChoice === 0){
         if(computerChoice ===0){
             return "Draw";
         }
         else{
             if (computerChoice ===1){
-                return "Wins";
+                return "Won";
             }
             else{
                 return "Lost"
@@ -20,7 +61,7 @@ function getResults(playerChoice, computerChoice){//ugly
         }
         else{
             if (computerChoice ===2){
-                return "Wins";
+                return "Won";
             }
             else{
                 return "Lost"
@@ -73,7 +114,7 @@ function displayResult(result){
         console.log("It's a Draw");
     }
     else{
-        console.log(`You ${result}`);
+        console.log(`You ${result} this round`);
     }
 }
 
@@ -81,15 +122,9 @@ function decodeChoice(op){
     return (op===0)? "Rock" : (op===1)? "Scissor" : "Paper";
 }
 
-function playRound(){
-    let playerChoice = getPlayerChoice();
-    let computerChoice = getComputerChoice();
-    console.log(`You chose ${decodeChoice(playerChoice)} and your opponent chose ${decodeChoice(computerChoice)}`);
-    let result = getResults(playerChoice, computerChoice);
-    displayResult(result);
-}
 
-playRound();
+
+
 
 // function getComputerChoice(){ //old version preferred to work with the numbers
 //     let choice = Math.floor(Math.random()*2);// get a number between 0 and 2
