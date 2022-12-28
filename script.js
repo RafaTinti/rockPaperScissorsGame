@@ -1,4 +1,4 @@
-let getComputerChoice = () => Math.floor(Math.random()*2); // gets a number between 0-2 0-rock, 1-scissor, 2-paper
+let getComputerChoice = () => Math.floor(Math.random()*3); // gets a number between 0-2 0-rock, 1-scissor, 2-paper
 
 game();
 
