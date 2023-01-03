@@ -120,16 +120,3 @@ function decodeChoice(op){
 }
 
 
-// function getComputerChoice(){ //old version preferred to work with the numbers
-//     let choice = Math.floor(Math.random()*2);// get a number between 0 and 2
-//     switch(choice){
-//         case 0:
-//             return "Rock";
-//         case 1:
-//             return "Scissor";
-//         case 2:
-//             return "paper";
-//         default:
-//             console.log("this shouldn't have happend");
-//     }
-// }
