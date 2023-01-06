@@ -1,29 +1,45 @@
 let getComputerChoice = () => Math.floor(Math.random()*3); // gets a number between 0-2 0-rock, 1-scissor, 2-paper
 
-const choiceBar = document.querySelector("#choiceBar");
-console.log(choiceBar);
-choiceBar.addEventListener("click", playRound);
-
-function playRound(e){
-    let playerChoice = codeChoice(e.target.id);
-    let computerChoice = getComputerChoice();
-    console.log(`You chose ${decodeChoice(playerChoice)} and your opponent chose ${decodeChoice(computerChoice)}`);
-    let result = getResults(playerChoice, computerChoice);
-    displayResult(result);
-    return result;
+document.querySelector("#startBtn").addEventListener("click", game);
+gameScore = [0,0]; // [player, cpu]
+function game(){
+    gameScore[0] = gameScore[1] = 0; //resets score
+    updateScore(0,0);
+    const choiceBar = document.querySelector(".choiceBar");
+    choiceBar.addEventListener("click", playRound);
 }
 
-function displayFinalResults(playerScore, computerScore){
-    if (playerScore > computerScore){
-        console.log("Congratulations you won!");
+function playRound(e){
+    if(!e.target.id) return; //leaves if you didnt click the buttons
+    if(gameScore[0]>4||gameScore[1]>4) return; //stops the game once one player gets 5
+    let playerChoice = codeChoice(e.target.id);
+    let computerChoice = getComputerChoice();
+    updateBoxes(playerChoice, computerChoice);
+    let result = getResults(playerChoice, computerChoice);
+    displayResult(result);
+    if (result === "Won"){
+        gameScore[0]++;
     }
-    else if (playerScore == computerScore){
-        console.log("It's a Draw!");
+    else if(result === "Lost"){
+        gameScore[1]++;
     }
-    else{
-        console.log("Sadly you lost");
+    updateScore(gameScore[0],gameScore[1]);
+    if(gameScore[0]>4||gameScore[1]>4){
+        alert(`End Game - you ${(gameScore[0]>gameScore[1])? "won" : "Lost"}`)
     }
-    console.log(`Final score\nplayer: ${playerScore} computer: ${computerScore}`);
+}
+
+function updateScore(playerScore, cpuScore){
+    const scoreBoard = document.querySelector(".scoreBoard");
+    scoreBoard.firstElementChild.textContent = `Player: ${playerScore}`;
+    scoreBoard.lastElementChild.textContent = `CPU: ${cpuScore}`;
+}
+
+function updateBoxes (playerChoice, computerChoice){
+    const pBox = document.querySelector(".player.choice");
+    const cpuBox = document.querySelector(".cpu.choice");
+    pBox.style.backgroundImage = `url(${chooseImg(decodeChoice(playerChoice))})`;
+    cpuBox.style.backgroundImage = `url(${chooseImg(decodeChoice(computerChoice))})`;
 }
 
 function getResults(playerChoice, computerChoice){//ugly, compares player choice and computer choice to determine result
@@ -68,61 +84,32 @@ function getResults(playerChoice, computerChoice){//ugly, compares player choice
     }
 }
 
-function displayResult(result){
-    if (result === "Draw"){
-        console.log("It's a Draw");
+function chooseImg(choice){
+    if(choice === "Rock"){
+        return "./imgs/rock.png";
+    }
+    else if(choice === "Scissor"){
+        return "./imgs/scissor.png";
     }
     else{
-        console.log(`You ${result} this round`);
+        return "./imgs/paper.png";
+    }
+}
+
+function displayResult(result){
+    const div = document.querySelector(".results")
+    if (result === "Draw"){
+        div.firstElementChild.innerHTML = "It's a Draw"
+    }
+    else{
+        div.firstElementChild.innerHTML = `You ${result} this round`
     }
 }
 
 function decodeChoice(op){
     return (op===0)? "Rock" : (op===1)? "Scissor" : "Paper";
 }
+
 function codeChoice (op){
     return (op === "rock")? 0 : (op === "scissor")? 1 : 2;
 }
-
-
-//game();
-
-
-// function game(){
-//     console.log("this will be a best of five games of Rock, Paper, Scissors");
-//     let playerScore=0, computerScore=0;
-//     for(let i=0; i<5; i++){
-//         result = playRound();
-//         if(result !== "Draw"){
-//             (result === "Won")? playerScore++ : computerScore++;
-//         }
-//         console.log(`Round ${i+1} player ${playerScore} wins and computer ${computerScore} wins`);
-//     }
-//     displayFinalResults(playerScore, computerScore);
-// }
-
-// function getPlayerChoice(){//returns a valid player choice as a integer
-//     let invalidChoice = true;
-//     let formatedChoice;
-//     while (invalidChoice){//runs the prompt until a valid choice is entered 
-//         let playerChoice = prompt("write your choice. \nrock, scissor or paper?");
-//         formatedChoice = playerChoice.toUpperCase();
-//         switch(formatedChoice){
-//             case "ROCK":
-//                 invalidChoice = false;
-//                 formatedChoice = 0;
-//                 break;
-//             case "SCISSOR":
-//                 invalidChoice = false;
-//                 formatedChoice = 1;
-//                 break;
-//             case "PAPER":
-//                 invalidChoice = false;
-//                 formatedChoice = 2;
-//                 break;
-//             default:
-//                 console.log("choice is invalid, please enter rock, scissor or paper. case does not matter");
-//         }
-//     }
-//     return formatedChoice;
-// }

@@ -4,16 +4,46 @@
     <head>
         <meta charset="utf-8">
         <title>RPS game</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
     </head>
     <body>
+        <div class="topBar">
+            <div class="container">
+                <div class="title">
+                    <h1>Rock Paper Scissor Game</h1>
+                </div>
+                <button id="startBtn">Start</button>
+                <div class="scoreBoard">
+                    <div class="playerScore element" >Player: ?</div>
+                    <div class="cpuScore element">Cpu: ?</div>
+                </div>
+            </div>
+        </div>
+        <div class="gameScreen">
+            <div class="container">
+                <div class="Box">
+                    <h2>PlayerChoice</h1>
+                    <div class="player choice"></div>
+                </div>
+                <div class="results">
+                    <h1>Results</h1>
+                </div>
+                <div class="Box">
+                    <h2>CPU Choice</h1>
+                    <div class="cpu choice"></div>
+                </div>
+            </div>
+        </div>
         <div>
-
+            <div class="container">
+                <div class="choiceBar">
+                    <button class="btn" id="rock">Rock</button>
+                    <button class="btn" id="paper">Paper</button>
+                    <button class="btn" id="scissor">Scissor</button>
+                </div>
+            </div>
         </div>
-        <div id="choiceBar">
-            <button class="btn" id="rock">Rock</button>
-            <button class="btn" id="paper">Paper</button>
-            <button class="btn" id="scissor">Scissor</button>
-        </div>
-        <script src="script.js"></script>
     </body>
 </html>
+
